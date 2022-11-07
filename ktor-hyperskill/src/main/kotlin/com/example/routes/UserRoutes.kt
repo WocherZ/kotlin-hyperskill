@@ -11,7 +11,7 @@ import io.ktor.server.routing.*
 fun Route.userRouting() {
     route("/user") {
         get("/profile") {
-            call.respond(MustacheContent("profile.hbs", mapOf("user" to User("Player", "qwerty", "qwerty"))))
+            call.respond(MustacheContent("profile.hbs", null))
         }
 
         get("/login") {
@@ -19,8 +19,6 @@ fun Route.userRouting() {
         }
 
         post("/login") {
-            println("Пришёл login")
-            loginPasswordStorage["vova"] = "qwerty"
             val receivedData = mutableMapOf<String, String>()
             call.receiveText().split('&').forEach {
                 receivedData[it.takeWhile { it != '=' }] = it.takeLastWhile { it != '=' }
